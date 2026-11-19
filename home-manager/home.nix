@@ -77,4 +77,15 @@ in
   home.sessionPath = [
     "$HOME/go/bin"
   ];
+  programs.gpg.enable = true;
+
+  services.gpg-agent = {
+    enable = true;
+    pinentry.package = pkgs.pinentry-curses;
+  };
+
+  programs.password-store = {
+    enable = true;
+    package = pkgs.pass-wayland;
+  };
 }
