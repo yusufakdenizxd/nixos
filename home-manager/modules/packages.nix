@@ -23,7 +23,6 @@
     bzmenu
     overskride
 
-    lazygit
     gnumake
     gcc
     fzf
