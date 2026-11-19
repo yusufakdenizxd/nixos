@@ -91,12 +91,7 @@ let
     if ! ${pkgs.procps}/bin/pgrep -x rot8 >/dev/null; then
       ${pkgs.rot8}/bin/rot8 &
     fi
-    if ! ${pkgs.procps}/bin/pgrep -x wvkbd-mobintl >/dev/null; then
-      ${wvkbdCmd} --hidden &
-    fi
-    if ! ${pkgs.procps}/bin/pgrep -f osk-autod >/dev/null; then
-      ${osk-autod}/bin/osk-autod &
-    fi
+    ${pkgs.eww}/bin/eww open tablet-dock
   '';
 
   off-tablet-mode = pkgs.writeShellScriptBin "off-tablet-mode" ''
@@ -105,6 +100,7 @@ let
     ${pkgs.procps}/bin/pkill -x rot8 || true
     ${pkgs.procps}/bin/pkill -f osk-autod || true
     ${pkgs.procps}/bin/pkill -x wvkbd-mobintl || true
+    ${pkgs.eww}/bin/eww close tablet-dock || true
     ${pkgs.sway}/bin/swaymsg output eDP-1 transform normal
   '';
 in
@@ -117,6 +113,7 @@ in
     ;
 
   packages = with pkgs; [
+    eww
     wvkbd
     osk-autod
     rot8

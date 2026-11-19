@@ -19,7 +19,6 @@
         modules-center = [ "clock" ];
         modules-right = [
           "tray"
-          "custom/osk"
           "pulseaudio"
           "backlight"
           "bluetooth"
@@ -41,13 +40,6 @@
         tray = {
           icon-size = 15;
           spacing = 6;
-        };
-
-        "custom/osk" = {
-          format = "󰌌";
-          tooltip = true;
-          tooltip-format = "Ekran Klavyesi";
-          on-click = "toggle-osk";
         };
 
         pulseaudio = {

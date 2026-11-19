@@ -10,10 +10,26 @@ let
 in
 {
   imports = [
-    (import ./radial-menu.nix { inherit pkgs lib tabletScripts; })
+    (import ./left-dock.nix { inherit pkgs lib tabletScripts; })
   ];
 
   home.packages = tabletScripts.packages;
+
+  systemd.user.services.eww = {
+    Unit = {
+      Description = "ElKowars Wacky Widgets daemon";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+    Service = {
+      ExecStart = "${pkgs.eww}/bin/eww daemon --no-daemonize";
+      Restart = "always";
+      RestartSec = 1;
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+  };
 
   systemd.user.services.lisgd = {
     Unit = {
@@ -41,15 +57,11 @@ in
           map_to_output = "eDP-1";
         };
       };
-
-      startup = [
-        { command = "${pkgs.eww}/bin/eww daemon"; }
-      ];
     };
 
     extraConfig = ''
-      bindswitch --reload --locked tablet:on exec ${tabletScripts.on-tablet-mode}/bin/on-tablet-mode
-      bindswitch --reload --locked tablet:off exec ${tabletScripts.off-tablet-mode}/bin/off-tablet-mode
+      bindswitch --locked tablet:on exec ${tabletScripts.on-tablet-mode}/bin/on-tablet-mode
+      bindswitch --locked tablet:off exec ${tabletScripts.off-tablet-mode}/bin/off-tablet-mode
     '';
   };
 }
