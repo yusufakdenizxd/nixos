@@ -10,18 +10,25 @@ let
     "${pkgs.sway}/bin/swaymsg '[app_id=${appId}] focus' || ${pkgs.sway}/bin/swaymsg exec ${bin}";
 
   takeScreenshot = pkgs.writeShellScriptBin "dock-screenshot" ''
-    sleep 0.2
-    GEOM=$(${pkgs.slurp}/bin/slurp)
-    if [ -n "$GEOM" ]; then
-      ${pkgs.grim}/bin/grim -g "$GEOM" - | ${pkgs.wl-clipboard}/bin/wl-copy
-      ${pkgs.libnotify}/bin/notify-send "Ekran Görüntüsü" "Seçilen alan panoya kopyalandı"
+    # Dokunma olayinin (touch-up) slurp'u tetiklememesi icin parmagin kalkmasini bekle
+    sleep 0.5
+
+    GEOM=$(${pkgs.slurp}/bin/slurp 2>/dev/null)
+    STATUS=$?
+
+    if [ $STATUS -eq 0 ] && [ -n "$GEOM" ]; then
+      if ${pkgs.grim}/bin/grim -g "$GEOM" - | ${pkgs.wl-clipboard}/bin/wl-copy; then
+        ${pkgs.libnotify}/bin/notify-send -u normal "Ekran Görüntüsü" "Seçilen alan panoya kopyalandı"
+      else
+        ${pkgs.libnotify}/bin/notify-send -u critical "Ekran Görüntüsü Hatası" "grim panoya kopyalayamadı"
+      fi
     fi
   '';
 
   dockButtons = [
     {
       icon = "󰄀";
-      cmd = "${takeScreenshot}/bin/dock-screenshot &";
+      cmd = "${pkgs.sway}/bin/swaymsg exec ${takeScreenshot}/bin/dock-screenshot";
     }
     {
       icon = "󰖟";
