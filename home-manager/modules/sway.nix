@@ -35,6 +35,13 @@
           xkb_options = "caps:hyper";
         };
 
+        "2:10:TPPS/2_Elan_TrackPoint" = {
+          pointer_accel = "0.2";
+          accel_profile = "flat";
+          scroll_method = "on_button_down";
+          scroll_button = "274";
+        };
+
         "type:touchpad" = {
           natural_scroll = "enabled";
           tap = "enabled";
