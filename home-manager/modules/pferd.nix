@@ -7,7 +7,7 @@
 
   xdg.configFile."PFERD/pferd.cfg".text = ''
     [DEFAULT]
-    working_dir = ~/uni/kit
+    working_dir = ~/uni
 
     [auth:ilias]
     type = pass
@@ -19,5 +19,17 @@
     target = desktop
     output_dir = .
     on_conflict = local-first
+
+    transform =
+        "**/Description.html" --> !
+
+        "**/Tutoriumsblätter**" --> {0}
+        "**/Tutoriumstermine*" --> {0}
+        "**/Maximilian Kirchhof**" --> {0}
+        "**/Hannes Hagenberger**" --> {0}
+        "**/Merlin Greve**" --> {0}
+
+        "**/Tutorien/**" --> !
+        "**/Tutorium/**" --> !
   '';
 }
