@@ -10,6 +10,8 @@
 
     tree-sitter
 
+    krita
+
     mgba
 
     rnote
