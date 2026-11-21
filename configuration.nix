@@ -31,6 +31,10 @@
     options = "--delete-older-than 7d";
   };
 
+  services.gvfs.enable = true;
+  services.gnome.tinysparql.enable = true;
+  services.gnome.localsearch.enable = true;
+
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;

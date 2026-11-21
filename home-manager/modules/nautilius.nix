@@ -13,6 +13,13 @@
       color-scheme = "prefer-dark";
       icon-theme = "Papirus-Dark";
     };
+    "org/gnome/nautilus/preferences" = {
+      search-filter-time-type = "last_modified";
+    };
+    "org/freedesktop/tracker/miner/files" = {
+      crawling-interval = -2;
+      enable-monitors = false;
+    };
   };
 
   gtk = {
