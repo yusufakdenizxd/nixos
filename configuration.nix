@@ -24,6 +24,11 @@
     efi.canTouchEfiVariables = true;
   };
   boot.kernelParams = [ "i915.enable_psr=0" ];
+  boot.extraModprobeConfig = ''
+    options iwlwifi power_save=0
+    options iwlmvm power_scheme=1
+    options psmouse synaptics_intertouch=1
+  '';
 
   nix.gc = {
     automatic = true;
