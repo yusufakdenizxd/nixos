@@ -10,7 +10,16 @@
 
     tree-sitter
 
-    krita
+    (pkgs.symlinkJoin {
+      name = "krita-wayland-fix";
+      paths = [ pkgs.krita ];
+      buildInputs = [ pkgs.makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/krita \
+          --set QT_QPA_PLATFORM wayland \
+          --set QT_ENABLE_HIGHDPI_SCALING 0
+      '';
+    })
 
     mgba
 

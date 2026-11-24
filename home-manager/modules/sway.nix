@@ -3,16 +3,24 @@
 {
   home.packages = with pkgs; [
     swaybg
-    slurp
     grim
+    slurp
+    wtype
+    wayfreeze
   ];
 
   wayland.windowManager.sway = {
     enable = true;
     checkConfig = false;
-
     config = {
       modifier = "Mod3";
+      fonts = {
+        names = [
+          "CaskaydiaCove Nerd Font Mono"
+          "monospace"
+        ];
+        size = 12.0;
+      };
       output = {
         "*" = {
           bg = "~/Pictures/Wallpaper/eva01.jpg fill";
@@ -78,7 +86,7 @@
         "Mod3+Ctrl+Shift+j" = "move container to output down; focus output down";
 
         "Print" =
-          "exec grim -g \"$(slurp)\" - | wl-copy && notify-send 'Ekran Görüntüsü' 'Seçilen alan panoya kopyalandı'";
+          "exec --no-startup-id grim -g \"$(slurp)\" - | wl-copy && notify-send -u normal 'Ekran Görüntüsü' 'Seçilen alan panoya kopyalandı'";
 
         "Mod3+t" =
           "exec ${pkgs.sway}/bin/swaymsg '[app_id=\"com.mitchellh.ghostty\"] focus' || exec ${pkgs.ghostty}/bin/ghostty";

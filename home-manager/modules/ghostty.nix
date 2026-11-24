@@ -63,7 +63,6 @@
         "super+9=text:\\x019"
 
         "performable:ctrl+c=copy_to_clipboard"
-        "ctrl+v=paste_from_clipboard"
         "ctrl+backspace=text:\\x17"
       ];
     };

@@ -9,18 +9,31 @@ let
     appId: bin:
     "${pkgs.sway}/bin/swaymsg '[app_id=${appId}] focus' || ${pkgs.sway}/bin/swaymsg exec ${bin}";
 
+  slurp-fixed = pkgs.slurp.overrideAttrs (old: {
+    postPatch = (old.postPatch or "") + ''
+      substituteInPlace main.c \
+        --replace-fail 'xkb_state_update_mask(seat->xkb_state,' \
+        'if (seat->xkb_state == NULL) { return; } xkb_state_update_mask(seat->xkb_state,'
+    '';
+  });
+
   takeScreenshot = pkgs.writeShellScriptBin "dock-screenshot" ''
-    # Dokunma olayinin (touch-up) slurp'u tetiklememesi icin parmagin kalkmasini bekle
-    sleep 0.5
+    ${pkgs.wayfreeze}/bin/wayfreeze --hide-cursor &
+    FREEZE_PID=$!
+    trap "kill $FREEZE_PID 2>/dev/null" EXIT
 
-    GEOM=$(${pkgs.slurp}/bin/slurp 2>/dev/null)
-    STATUS=$?
+    sleep 0.05
 
-    if [ $STATUS -eq 0 ] && [ -n "$GEOM" ]; then
-      if ${pkgs.grim}/bin/grim -g "$GEOM" - | ${pkgs.wl-clipboard}/bin/wl-copy; then
-        ${pkgs.libnotify}/bin/notify-send -u normal "Ekran Görüntüsü" "Seçilen alan panoya kopyalandı"
-      else
-        ${pkgs.libnotify}/bin/notify-send -u critical "Ekran Görüntüsü Hatası" "grim panoya kopyalayamadı"
+    GEOM=$(${slurp-fixed}/bin/slurp 2>/dev/null)
+    if [ $? -eq 0 ] && [ -n "$GEOM" ]; then
+      SIZE=$(echo "$GEOM" | awk '{print $2}')
+      W=$(echo "$SIZE" | cut -d'x' -f1)
+      H=$(echo "$SIZE" | cut -d'x' -f2)
+
+      if [ "$W" -ge 10 ] && [ "$H" -ge 10 ]; then
+        if ${pkgs.grim}/bin/grim -g "$GEOM" - | ${pkgs.wl-clipboard}/bin/wl-copy; then
+          ${pkgs.libnotify}/bin/notify-send -u normal "Ekran Görüntüsü" "Seçilen alan panoya kopyalandı"
+        fi
       fi
     fi
   '';

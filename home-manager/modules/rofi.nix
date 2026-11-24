@@ -70,8 +70,8 @@ in
 
       disable-history = false;
       max-history-size = 50;
-      drun-use-desktop-cache = true;
-      drun-reload-desktop-cache = false;
+      drun-use-desktop-cache = false;
+      drun-reload-desktop-cache = true;
       lazy-grab = true;
 
       hide-scrollbar = true;

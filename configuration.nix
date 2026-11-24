@@ -30,12 +30,6 @@
     options psmouse synaptics_intertouch=1
   '';
 
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 7d";
-  };
-
   services.gvfs.enable = true;
   services.gnome.tinysparql.enable = true;
   services.gnome.localsearch.enable = true;
@@ -43,6 +37,10 @@
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
+    theme = "sddm-astronaut-theme";
+    extraPackages = with pkgs; [
+      sddm-astronaut
+    ];
   };
   services.flatpak.enable = true;
 
@@ -224,6 +222,38 @@
         "--enable-gpu-rasterization"
         "--enable-zero-copy"
       ];
+    })
+
+    (sddm-astronaut.override {
+      themeConfig = {
+        Background = "/home/akdeniz/Pictures/Wallpaper/eva01.jpg";
+        DimBackgroundImage = "0.25";
+        BlurRadius = "20";
+
+        MainColor = "#ebdbb2";
+        AccentColor = "#d79921";
+        BackgroundColor = "#282828";
+        HeaderTextColor = "#ebdbb2";
+        DateTextColor = "#a89984";
+        TimeTextColor = "#ebdbb2";
+        LoginFieldTextColor = "#ebdbb2";
+        LoginFieldBackgroundColor = "#3c3836";
+        PasswordFieldTextColor = "#ebdbb2";
+        PasswordFieldBackgroundColor = "#3c3836";
+        DropdownTextColor = "#ebdbb2";
+        DropdownBackgroundColor = "#282828";
+        HighlightTextColor = "#1d2021";
+        HighlightBackgroundColor = "#d79921";
+        HighlightBorderColor = "#d79921";
+
+        Font = "CaskaydiaCove Nerd Font Mono";
+        FontSize = "12";
+        RoundCorners = "12";
+        ScreenWidth = "1920";
+        ScreenHeight = "1080";
+        FormPosition = "center";
+        VirtualKeyboardPosition = "bottom";
+      };
     })
   ];
 
