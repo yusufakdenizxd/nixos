@@ -71,6 +71,7 @@ in
     NIXOS_OZONE_WL = "1";
     JAVA_HOME = "${pkgs.jdk25}";
     GOPATH = "$HOME/go";
+    GSK_RENDERER = "ngl";
     NH_HOME_FLAKE = "/home/akdeniz/dev/nixos";
   };
 

@@ -31,8 +31,17 @@
   '';
 
   services.gvfs.enable = true;
-  services.gnome.tinysparql.enable = true;
-  services.gnome.localsearch.enable = true;
+
+  services.gnome.tinysparql.enable = false;
+  services.gnome.localsearch.enable = false;
+
+  programs.thunar = {
+    enable = true;
+    plugins = with pkgs; [
+      thunar-archive-plugin
+      thunar-volman
+    ];
+  };
 
   services.displayManager.sddm = {
     enable = true;
@@ -148,6 +157,8 @@
   xdg.portal = {
     enable = true;
     wlr.enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config.common.default = "*";
   };
 
   security.rtkit.enable = true;
