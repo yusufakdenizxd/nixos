@@ -23,7 +23,7 @@
       };
       output = {
         "*" = {
-          bg = "~/Pictures/Wallpaper/eva01.jpg fill";
+          bg = "/home/akdeniz/Pictures/wallpaper/redsunset.jpg fill";
         };
         "HDMI-A-2" = {
           mode = "1920x1080@60Hz";
