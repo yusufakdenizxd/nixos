@@ -14,6 +14,9 @@
     checkConfig = false;
     config = {
       modifier = "Mod3";
+      focus = {
+        followMouse = false;
+      };
       fonts = {
         names = [
           "CaskaydiaCove Nerd Font Mono"

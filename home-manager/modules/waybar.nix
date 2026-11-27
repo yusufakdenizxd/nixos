@@ -71,7 +71,7 @@
           tooltip-format = "{controller_alias}\t{status}";
           tooltip-format-connected = "{device_enumerate}";
           tooltip-format-enumerate-connected = "{device_alias}\t{device_battery_percentage}%";
-          on-click = "bzmenu -l rofi";
+          on-click = "swaymsg exec 'bzmenu -l fuzzel'";
           on-click-right = "overskride";
         };
 
@@ -80,7 +80,7 @@
           format-ethernet = "󰈀";
           format-disconnected = "󰤭";
           tooltip-format = "{essid} ({ipaddr})";
-          on-click = "networkmanager_dmenu";
+          on-click = "swaymsg exec networkmanager_dmenu";
         };
 
         battery = {

@@ -56,14 +56,14 @@ in
 
   xdg.configFile."networkmanager-dmenu/config.ini".text = ''
     [dmenu]
-    dmenu_command = rofi -dmenu -i -p "Wi-Fi"
-    rofi_highlight = True
-    compact = True
+    dmenu_command = ${pkgs.fuzzel}/bin/fuzzel --dmenu --prompt="Wi-Fi: " --width=45
+    pinentry = ${pkgs.pinentry-gnome3}/bin/pinentry
     wifi_chars = ▂▄▆█
+    compact = True
 
-    [pinentry]
-    description = Wi-Fi Şifresi
-    prompt = Şifre:
+    [editor]
+    terminal = ${pkgs.ghostty}/bin/ghostty
+    gui_if_available = False
   '';
 
   home.sessionVariables = {

@@ -50,7 +50,7 @@ in
         font = "CaskaydiaCove Nerd Font:size=10";
         icon-theme = "Papirus-Dark";
         icons-enabled = true;
-        fuzzy = true;
+        match-mode = "fuzzy";
         sort-result = true;
         match-counter = true;
         lines = 12;
