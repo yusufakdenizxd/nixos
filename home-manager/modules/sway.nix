@@ -36,7 +36,7 @@
         };
       };
       terminal = "ghostty";
-      menu = "rofi -show drun";
+      menu = "fuzzel";
 
       input = {
         "type:keyboard" = {
@@ -108,11 +108,11 @@
         "Mod3+F10" =
           "exec ${pkgs.bash}/bin/bash -c 'cur=$(${pkgs.brightnessctl}/bin/brightnessctl -d tpacpi::kbd_backlight g); next=$(( (cur + 1) % 3 )); ${pkgs.brightnessctl}/bin/brightnessctl -d tpacpi::kbd_backlight s $next'";
 
-        "Mod3+space" = "exec rofi -show drun";
-        "Mod3+v" = "exec rofi-clipboard";
-        "Mod3+z" = "exec rofi-files";
-        "Mod3+c" = "exec rofi -show calc -no-show-match -no-sort";
-        "Mod3+period" = "exec rofi -show emoji";
+        "Mod3+space" = "exec fuzzel";
+        "Mod3+v" = "exec fuzzel-clip";
+        "Mod3+z" = "exec fuzzel-files";
+        "Mod3+c" = "exec fuzzel-calc";
+        "Mod3+period" = "exec fuzzel-emoji";
 
         "Mod3+a" = "workspace prev";
         "Mod3+d" = "workspace next";
