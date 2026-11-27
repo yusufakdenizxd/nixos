@@ -237,7 +237,7 @@
 
     (sddm-astronaut.override {
       themeConfig = {
-        Background = "/home/akdeniz/Pictures/Wallpaper/eva01.jpg";
+        Background = "/home/akdeniz/Pictures/wallpaper/redsunset.jpg";
         DimBackgroundImage = "0.25";
         BlurRadius = "20";
 
